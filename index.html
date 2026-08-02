@@ -330,6 +330,9 @@ h1, h2, h3, h4 {
 .resume-doc ul { margin: 0; padding-left: 17px; }
 .resume-doc li { font-size: 13.6px; line-height: 1.5; margin-bottom: 5px; }
 .r-summary { font-size: 14px; margin: 0; }
+.r-ach { margin: 0; padding-left: 17px; }
+.r-ach li { font-size: 13.6px; line-height: 1.5; margin-bottom: 5px; }
+.r-ach li::marker { color: var(--flame); }
 .r-skill { font-size: 13.6px; line-height: 1.55; margin: 0 0 7px; }
 .r-skill b, .r-edu b { color: var(--ink); }
 .r-edu { font-size: 13.6px; margin: 0 0 5px; }
@@ -379,20 +382,24 @@ h1, h2, h3, h4 {
   body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #000; }
   .wrap { max-width: none; padding: 0; }
   .resume-shell { border: 0; padding: 0; margin: 0; box-shadow: none; border-radius: 0; background: #fff; }
-  .resume-doc { font-size: 8.6pt; line-height: 1.29; color: #000; }
-  .resume-doc header { border-bottom: 1.2pt solid #000; padding-bottom: 3.5pt; margin-bottom: 5pt; text-align: center; }
-  .resume-doc h1 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 700; font-size: 17pt; letter-spacing: 0.04em; margin-bottom: 2pt; color: #000; line-height: 1.05; }
-  .resume-doc .r-headline { font-family: inherit; font-size: 8.2pt; letter-spacing: 0.01em; color: #000; margin-bottom: 1.5pt; }
-  .resume-doc .r-contact { font-family: inherit; font-size: 8.2pt; color: #222; }
-  .resume-doc h2 { font-family: inherit; font-size: 7.9pt; letter-spacing: 0.16em; color: #000; border-bottom: 0.6pt solid #777; padding-bottom: 1.5pt; margin: 6.2pt 0 3.5pt; }
-  .r-summary { font-size: 8.5pt; line-height: 1.31; }
-  .r-job { margin-bottom: 4.4pt; }
-  .r-job__title { font-size: 9pt; }
+  .resume-doc { font-size: 8.4pt; line-height: 1.26; color: #000; }
+  .resume-doc header { border-bottom: 1.4pt solid #1B1147; padding-bottom: 2.6pt; margin-bottom: 4pt; text-align: center; }
+  .resume-doc h1 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 700; font-size: 17pt; letter-spacing: 0.04em; margin-bottom: 2pt; color: #1B1147; line-height: 1.05; }
+  .resume-doc .r-headline { font-family: inherit; font-size: 8.2pt; letter-spacing: 0.01em; color: #C0390A; font-weight: 600; margin-bottom: 1.5pt; }
+  .resume-doc .r-contact { font-family: inherit; font-size: 8.2pt; color: #222; margin: 0 0 1pt; }
+  .resume-doc .r-contact a { color: #222; }
+  .resume-doc h2 { font-family: inherit; font-size: 8.1pt; font-weight: 700; letter-spacing: 0.16em; color: #C0390A; border-bottom: 1pt solid #C0390A; padding-bottom: 1.4pt; margin: 4.8pt 0 2.8pt; }
+  .r-summary { font-size: 8.3pt; line-height: 1.28; }
+  .r-ach { padding-left: 11pt; margin: 0; }
+  .r-ach li { font-size: 8.3pt; line-height: 1.26; margin-bottom: 1pt; }
+  .r-ach li::marker { color: #C0390A; }
+  .r-job { margin-bottom: 3.6pt; }
+  .r-job__title { font-size: 9pt; color: #1B1147; }
   .r-job__date { font-family: inherit; font-size: 8.2pt; color: #000; }
   .r-job__sub { font-size: 7.9pt; margin: 0 0 1.5pt; }
   .resume-doc ul { padding-left: 11pt; }
-  .resume-doc li { font-size: 8.5pt; line-height: 1.28; margin-bottom: 0.8pt; }
-  .r-skill, .r-edu { font-size: 8.5pt; line-height: 1.3; margin-bottom: 1.8pt; }
+  .resume-doc li { font-size: 8.3pt; line-height: 1.26; margin-bottom: 0.7pt; }
+  .r-skill, .r-edu { font-size: 8.3pt; line-height: 1.27; margin-bottom: 1.5pt; }
   a { color: #000; text-decoration: none; }
   .r-job, .r-job__line, li { page-break-inside: avoid; }
   .resume-doc > *:last-child { margin-bottom: 0 !important; }
@@ -979,11 +986,21 @@ h1, h2, h3, h4 {
     <header>
       <h1>Rahul Attery</h1>
       <p class="r-headline">Product Marketing | GTM | AI | B2B SaaS | Fintech</p>
-      <p class="r-contact">Dubai, UAE (relocating in 30 days) &nbsp;|&nbsp; rahul.attery@gmail.com &nbsp;|&nbsp; WA: +91 9802449090 &nbsp;|&nbsp; linkedin.com/in/rahulattery</p>
+      <p class="r-contact">Dubai, UAE (relocating in 30 days) &nbsp;|&nbsp; <a href="mailto:rahul.attery@gmail.com">rahul.attery@gmail.com</a> &nbsp;|&nbsp; WA: +91 9802449090</p>
+      <p class="r-contact"><a href="https://linkedin.com/in/rahulattery">linkedin.com/in/rahulattery</a> &nbsp;|&nbsp; <a href="https://rahulattery.vercel.app">rahulattery.vercel.app</a></p>
     </header>
 
     <h2>Summary</h2>
-    <p class="r-summary">Product marketing and go-to-market lead with 6+ years across sales, marketing, productization and strategy in B2B technology, spanning satellite connectivity, telecom, fintech, AI SaaS and banking. Owns positioning, messaging, packaging, launch planning and sales enablement end to end, currently for a Dubai-headquartered satellite and managed connectivity provider across the Middle East and Sub-Saharan Africa, reporting to the MD/CEO. Takes products from unpositioned to packaged and revenue-generating, with $256K+ in deals closed on the portfolio, and grows enterprise account books.</p>
+    <p class="r-summary">Product marketing and go-to-market lead with 6+ years across sales, marketing, productization and strategy in B2B technology, spanning satellite connectivity, telecom, fintech, AI SaaS and banking. Owns positioning, messaging, packaging, launch planning and sales enablement end to end, currently for a Dubai-headquartered satellite and managed connectivity provider across the Middle East and Sub-Saharan Africa, reporting to the MD/CEO. Takes products from unpositioned to packaged and revenue-generating, and grows enterprise account books.</p>
+
+    <h2>Key Achievements</h2>
+    <ul class="r-ach">
+      <li><b>$256K+ closed</b> on a portfolio built from zero positioning, taking iPulse and iNaaS from unpositioned to packaged offerings (iSAT Africa).</li>
+      <li><b>$300K to $450K ARR</b>, up 50% in 18 months across 10+ key accounts, with account profitability up about 20% (The Teaser Company).</li>
+      <li><b>$20K to $150K+ deals</b> closed across UAE, KSA, Qatar, Kuwait, Bahrain and North America, landing two flagship UAE accounts inside a 4-month market-entry engagement (Digidarts).</li>
+      <li><b>$300K+ B2B revenue</b> across 15+ enterprise accounts, with manual reporting time cut about 40% through AI workflows (The 808).</li>
+      <li><b>95% client retention</b>, portfolio revenue up about 30% in under 4 months (HSBC); built Citibank's Digital Account Opening from scratch to launch across 73+ accounts and a team of 20.</li>
+    </ul>
 
     <h2>Professional Experience</h2>
 
@@ -994,11 +1011,10 @@ h1, h2, h3, h4 {
       </div>
       <p class="r-job__sub">Satellite and Managed Connectivity | Dubai, UAE</p>
       <ul>
-        <li><b>Own product marketing and go-to-market</b> for iPulse (SaaS-based IoT monitoring and analytics), iNaaS and the satellite connectivity portfolio; took both products from unpositioned to packaged, revenue-generating offerings, with $256K+ in deals closed on the portfolio to date.</li>
+        <li><b>Own product marketing and go-to-market</b> for iPulse (SaaS-based IoT monitoring and analytics), iNaaS and the satellite connectivity portfolio; took both products from unpositioned to packaged, revenue-generating offerings.</li>
         <li><b>Build positioning and messaging frameworks</b>, buyer personas and segment-level value propositions for banking, retail and telecom, plus the launch plans and sales enablement that drive adoption.</li>
         <li><b>Lead partnership and ecosystem-led growth</b> across Middle East and Sub-Saharan African markets, working directly with C-suite stakeholders; an earlier engagement with the same client supported the OneWeb launch ecosystem at the Seamless Digital Conference, Dubai.</li>
-        <li><b>Built the end-to-end collateral system</b>: industry brochures, 4 enterprise case studies (banking 5G, MNO tower infrastructure, logistics, NaaS), proposal and quote templates in Zoho CRM.</li>
-        <li><b>Run the social content engine and campaigns</b>, plus the marketing operations layer: deliverables tracker, pipeline reporting and a monthly reporting cadence to the CEO.</li>
+        <li><b>Built the end-to-end collateral system</b>: industry brochures, 4 enterprise case studies (banking 5G, MNO tower infrastructure, logistics, NaaS), proposal and quote templates in Zoho CRM; run the social content engine, campaigns and the marketing operations layer, including pipeline reporting and a monthly cadence to the CEO.</li>
       </ul>
     </div>
 
@@ -1009,8 +1025,7 @@ h1, h2, h3, h4 {
       </div>
       <p class="r-job__sub">AI-First Marketing House</p>
       <ul>
-        <li>Owned and expanded 15+ enterprise accounts, generating <b>$300K+ in B2B revenue</b> through AI-led marketing solutions for brands including Air India, Red Bull, ICICI Bank and Lego.</li>
-        <li>Built revenue forecasting models and growth dashboards adopted by leadership for weekly pipeline reviews; cut manual reporting time by about 40% through AI workflows and automation.</li>
+        <li>Owned and expanded 15+ enterprise accounts through AI-led marketing solutions for brands including Air India, Red Bull, ICICI Bank and Lego; built the revenue forecasting models and growth dashboards leadership adopted for weekly pipeline reviews.</li>
       </ul>
     </div>
 
@@ -1020,7 +1035,7 @@ h1, h2, h3, h4 {
         <span class="r-job__date">Nov 2023 - Mar 2025</span>
       </div>
       <ul>
-        <li>Grew an enterprise portfolio from $300K to $450K ARR, up 50% in 18 months, through structured upsell and cross-sell expansion across 10+ key accounts, improving account profitability by about 20%.</li>
+        <li>Grew the enterprise portfolio through structured upsell and cross-sell expansion across 10+ key accounts.</li>
         <li>Built revenue tracking dashboards that improved leadership forecast accuracy, and reduced client churn through cross-functional alignment across strategy, delivery and creative teams.</li>
       </ul>
     </div>
@@ -1031,7 +1046,7 @@ h1, h2, h3, h4 {
         <span class="r-job__date">Aug 2023 - Nov 2023</span>
       </div>
       <ul>
-        <li>Achieved 95% client retention through consultative relationship management; grew portfolio revenue by about 30% in under 4 months via cross-sell across retail, fintech and media verticals.</li>
+        <li>Drove client retention and portfolio revenue through consultative relationship management and cross-sell across retail, fintech and media verticals.</li>
       </ul>
     </div>
 
@@ -1042,8 +1057,8 @@ h1, h2, h3, h4 {
       </div>
       <p class="r-job__sub">Promoted twice in 4 years: Assistant Product Manager (Apr 2022 - Mar 2023) | Senior Associate, Corporate Sales (Apr 2020 - Mar 2022) | Corporate Sales Associate (Jan 2019 - Mar 2020)</p>
       <ul>
-        <li>Managed 73+ enterprise banking accounts; mapped customer-lifecycle gaps and ran structured cross-sell, upsell and retention programmes across the premium corporate segment; worked on the Digital Account Opening project from scratch to test to launch (0-1).</li>
-        <li>Led a team of 20 sales professionals, driving pipeline generation and product performance through structured reporting and KPI monitoring. Sales Champion, North Region, Q3 2022; ranked among top performers nationwide, Q2 2022.</li>
+        <li>Mapped customer-lifecycle gaps and ran structured cross-sell, upsell and retention programmes across the premium corporate segment; worked on the Digital Account Opening project from scratch to test to launch (0-1).</li>
+        <li>Drove pipeline generation and product performance through structured reporting and KPI monitoring. Sales Champion, North Region, Q3 2022; ranked among top performers nationwide, Q2 2022.</li>
       </ul>
     </div>
 
