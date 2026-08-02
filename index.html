@@ -11,24 +11,420 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css">
+<style>
+/* ==========================================================================
+   Rahul Attery portfolio, v2
+   Concept: the signal and the sentence. Raw telemetry on one side, the
+   sentence that actually sold it on the other.
+   Type:   Bricolage Grotesque (display) / Instrument Serif italic (accent)
+           Inter (body) / JetBrains Mono (data)
+   ========================================================================== */
+
+:root {
+  --paper:    #FFF6EC;
+  --paper-2:  #FFEEDC;
+  --card:     #FFFFFF;
+  --ink:      #190E33;
+  --ink-2:    #3B2E5A;
+  --ink-soft: #5A4C7A;
+  --muted:    #8479A0;
+
+  --flame:    #FF5A1F;
+  --flame-dk: #D93D05;
+  --sun:      #FFC531;
+  --aqua:     #00C9A0;
+  --violet:   #6E4BFF;
+
+  --line:     #E4D6C4;
+
+  --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --serif:   "Instrument Serif", Georgia, serif;
+  --body:    "Inter", "Helvetica Neue", Arial, sans-serif;
+  --mono:    "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+
+  --maxw: 1180px;
+  --r: 20px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; overflow-x: hidden; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink-2);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--flame-dk); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; border-radius: 6px; }
+
+h1, h2, h3, h4 {
+  font-family: var(--display); color: var(--ink); margin: 0;
+  font-weight: 700; letter-spacing: -0.03em; line-height: 1.06;
+}
+.it { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.005em; }
+
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 26px; }
+.section { padding: 84px 0; }
+
+/* ---------- eyebrow ---------- */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink); background: var(--sun);
+  padding: 6px 13px; border: 2px solid var(--ink); border-radius: 100px;
+  margin: 0 0 22px;
+}
+.eyebrow--flame  { background: var(--flame); color: #fff; }
+.eyebrow--aqua   { background: var(--aqua); }
+.eyebrow--violet { background: var(--violet); color: #fff; }
+.eyebrow--plain  { background: transparent; }
+
+.dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; flex: none; }
+.dot--live { background: #0B8F00; animation: blink 1.6s steps(1) infinite; }
+@keyframes blink { 0%,60% { opacity: 1; } 61%,100% { opacity: .22; } }
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--body); font-size: 15px; font-weight: 600;
+  background: var(--ink); color: #fff;
+  padding: 13px 22px; border: 2px solid var(--ink); border-radius: 100px;
+  box-shadow: 3px 3px 0 var(--flame);
+  transition: transform .14s ease, box-shadow .14s ease;
+}
+.btn:hover { text-decoration: none; color: #fff; transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--flame); }
+.btn:active { transform: translate(1px,1px); box-shadow: 1px 1px 0 var(--flame); }
+.btn--flame { background: var(--flame); box-shadow: 3px 3px 0 var(--ink); }
+.btn--flame:hover { box-shadow: 5px 5px 0 var(--ink); }
+.btn--ghost { background: transparent; color: var(--ink); box-shadow: 3px 3px 0 var(--ink); }
+.btn--ghost:hover { color: var(--ink); background: var(--sun); box-shadow: 5px 5px 0 var(--ink); }
+.btn--sm { font-size: 13.5px; padding: 9px 16px; }
+
+/* ---------- nav ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 40;
+  background: rgba(255,246,236,.9);
+  backdrop-filter: saturate(150%) blur(10px);
+  border-bottom: 2px solid var(--ink);
+}
+.nav__in { max-width: var(--maxw); margin: 0 auto; padding: 12px 26px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.brand { font-family: var(--display); font-weight: 800; font-size: 20px; color: var(--ink); letter-spacing: -0.04em; white-space: nowrap; }
+.brand:hover { text-decoration: none; color: var(--flame-dk); }
+.brand em { font-style: normal; color: var(--flame); }
+.navlinks { display: flex; align-items: center; gap: 6px; }
+.navlinks a {
+  font-size: 14px; font-weight: 500; color: var(--ink-2);
+  padding: 7px 13px; border-radius: 100px; border: 2px solid transparent;
+}
+.navlinks a:hover { text-decoration: none; color: var(--ink); background: var(--paper-2); border-color: var(--ink); }
+.navlinks a.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+
+/* ---------- hero ---------- */
+.hero { padding: 62px 0 20px; position: relative; isolation: isolate; }
+.hero::before {
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  width: 500px; height: 500px; right: -60px; top: -170px;
+  background: radial-gradient(circle, rgba(255,90,31,.22), rgba(255,90,31,0) 68%);
+}
+.hero::after {
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  width: 440px; height: 440px; left: -90px; top: 200px;
+  background: radial-gradient(circle, rgba(110,75,255,.16), rgba(110,75,255,0) 68%);
+}
+.hero h1 { font-size: clamp(42px, 7.2vw, 86px); max-width: 15ch; margin-bottom: 26px; letter-spacing: -0.045em; }
+.hero h1 .it { color: var(--flame-dk); font-size: 1.05em; }
+.hero__sub { font-size: clamp(17px, 1.9vw, 20px); max-width: 62ch; color: var(--ink-soft); margin: 0 0 24px; }
+.hero__sub b { color: var(--ink); font-weight: 600; }
+
+.pillrow { display: flex; flex-wrap: wrap; gap: 9px; padding: 0; margin: 0 0 26px; list-style: none; }
+.pillrow li {
+  font-family: var(--mono); font-size: 12px; font-weight: 500;
+  color: var(--ink); background: var(--card);
+  padding: 8px 14px; border: 2px solid var(--ink); border-radius: 100px;
+}
+.pillrow li:nth-child(4n+1) { background: #FFE4D6; }
+.pillrow li:nth-child(4n+2) { background: #FFF1C9; }
+.pillrow li:nth-child(4n+3) { background: #D3FBF0; }
+.pillrow li:nth-child(4n+4) { background: #E9E2FF; }
+
+.ctarow { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.locbadge {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--mono); font-size: 12.5px; color: var(--ink);
+  background: var(--card); border: 2px solid var(--ink); border-radius: 100px;
+  padding: 9px 15px; margin: 0 0 24px;
+}
+
+/* ---------- ticker ---------- */
+.ticker {
+  border-top: 3px solid var(--ink); border-bottom: 3px solid var(--ink);
+  background: var(--flame); color: #fff; overflow: hidden; padding: 14px 0; margin-top: 46px;
+}
+.ticker__track { display: flex; width: max-content; animation: slide 38s linear infinite; }
+.ticker__track > div { display: flex; align-items: center; }
+.ticker b {
+  font-family: var(--display); font-weight: 800; font-size: 19px;
+  letter-spacing: -0.025em; padding: 0 12px 0 32px; white-space: nowrap;
+}
+.ticker span { font-family: var(--mono); font-size: 12.5px; opacity: .94; white-space: nowrap; }
+@keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.ticker:hover .ticker__track { animation-play-state: paused; }
+
+/* ---------- signature: signal and sentence ---------- */
+.signal {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border: 3px solid var(--ink); border-radius: var(--r);
+  overflow: hidden; box-shadow: 8px 8px 0 var(--ink); background: var(--card);
+}
+.signal__raw { background: var(--ink); color: #BCAEE0; padding: 30px 28px; }
+.signal__raw .lab { font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--sun); display: block; margin-bottom: 14px; }
+.signal__raw p { font-family: var(--mono); font-size: 13.5px; line-height: 1.62; margin: 0; }
+.signal__raw p::after { content: "\258C"; color: var(--aqua); animation: blink 1.1s steps(1) infinite; margin-left: 2px; }
+.signal__out { background: var(--sun); color: var(--ink); padding: 30px 28px; }
+.signal__out .lab { font-family: var(--mono); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; display: block; margin-bottom: 14px; }
+.signal__out p { font-family: var(--display); font-weight: 700; font-size: clamp(20px, 2.4vw, 27px); line-height: 1.16; letter-spacing: -0.03em; margin: 0; }
+.signal--flame  .signal__out { background: var(--flame); color: #fff; }
+.signal--aqua   .signal__out { background: var(--aqua); }
+.signal--violet .signal__out { background: var(--violet); color: #fff; }
+
+/* ---------- section heads ---------- */
+.shead { max-width: 34ch; }
+.shead h2 { font-size: clamp(30px, 4.4vw, 46px); margin-bottom: 12px; }
+.shead p { color: var(--ink-soft); margin: 0; }
+.shead--wide { max-width: 48ch; }
+
+/* ---------- org strip ---------- */
+.orgs { display: flex; flex-wrap: wrap; gap: 12px; padding: 0; margin: 28px 0 0; list-style: none; }
+.orgs li { background: var(--card); border: 3px solid var(--ink); border-radius: 16px; padding: 15px 18px; box-shadow: 4px 4px 0 var(--ink); flex: 1 1 195px; }
+.orgs b { display: block; font-family: var(--display); font-size: 17px; color: var(--ink); letter-spacing: -0.025em; margin-bottom: 2px; }
+.orgs span { font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+
+/* ---------- case cards ---------- */
+.case-card {
+  background: var(--card); border: 3px solid var(--ink); border-radius: var(--r);
+  box-shadow: 8px 8px 0 var(--ink); overflow: hidden; margin-bottom: 36px;
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+.case-card:hover { transform: translate(-3px,-3px); box-shadow: 11px 11px 0 var(--ink); }
+.case-card__bar {
+  padding: 11px 26px; border-bottom: 3px solid var(--ink);
+  font-family: var(--mono); font-size: 11.5px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--ink);
+}
+.cc--1 .case-card__bar { background: var(--sun); }
+.cc--2 .case-card__bar { background: var(--aqua); }
+.cc--3 .case-card__bar { background: var(--violet); color: #fff; }
+.case-card__body { padding: 30px 26px 26px; }
+.case-card__body h3 { font-size: clamp(24px, 3.1vw, 34px); margin-bottom: 14px; max-width: 24ch; }
+.case-card__body h3 a { color: var(--ink); }
+.case-card__body h3 a:hover { text-decoration: none; color: var(--flame-dk); }
+.case-card__lede { margin: 0 0 22px; max-width: 66ch; }
+
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 0 0 22px; }
+.stat { border: 2px solid var(--ink); border-radius: 14px; padding: 16px; background: var(--paper-2); }
+.stat b { display: block; font-family: var(--display); font-weight: 800; font-size: clamp(21px, 2.7vw, 30px); color: var(--ink); letter-spacing: -0.045em; line-height: 1.05; margin-bottom: 5px; }
+.stat span { font-size: 13.5px; line-height: 1.4; color: var(--ink-soft); display: block; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0 0 22px; list-style: none; }
+.tags li { font-family: var(--mono); font-size: 11.5px; color: var(--ink); background: var(--paper-2); border: 2px solid var(--ink); border-radius: 100px; padding: 6px 12px; }
+
+/* ---------- specialization ---------- */
+.spec { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; margin-top: 36px; }
+.spec__item { background: var(--card); border: 3px solid var(--ink); border-radius: var(--r); padding: 26px 24px; }
+.spec__item:nth-child(1) { box-shadow: 6px 6px 0 var(--flame); }
+.spec__item:nth-child(2) { box-shadow: 6px 6px 0 var(--sun); }
+.spec__item:nth-child(3) { box-shadow: 6px 6px 0 var(--aqua); }
+.spec__item:nth-child(4) { box-shadow: 6px 6px 0 var(--violet); }
+.spec__no { font-family: var(--mono); font-size: 11px; letter-spacing: .16em; color: var(--muted); display: block; margin-bottom: 10px; }
+.spec__item h3 { font-size: 22px; margin-bottom: 9px; }
+.spec__item p { margin: 0; font-size: 15.5px; }
+
+/* ---------- timeline ---------- */
+.tl { margin-top: 32px; border-top: 3px solid var(--ink); }
+.tl__row { display: grid; grid-template-columns: 172px 1fr; gap: 12px 26px; padding: 18px 0; border-bottom: 2px solid var(--line); align-items: start; }
+.tl__when { font-family: var(--mono); font-size: 12.5px; color: var(--ink); background: var(--paper-2); border: 2px solid var(--ink); border-radius: 100px; padding: 5px 12px; display: inline-block; }
+.tl__role { font-family: var(--display); font-weight: 700; font-size: 18px; color: var(--ink); letter-spacing: -0.025em; display: block; margin-bottom: 2px; }
+.tl__org { font-family: var(--mono); font-size: 12px; color: var(--muted); display: block; margin-bottom: 6px; }
+.tl__what { margin: 0; font-size: 15.5px; }
+
+/* ---------- CTA ---------- */
+.cta { background: var(--ink); border: 3px solid var(--ink); border-radius: 28px; padding: 54px 44px; box-shadow: 10px 10px 0 var(--flame); }
+.cta h2 { color: #fff; font-size: clamp(30px, 4.6vw, 52px); max-width: 19ch; margin-bottom: 18px; }
+.cta h2 .it { color: var(--sun); }
+.cta p { max-width: 58ch; margin: 0 0 26px; color: #BCAEE0; }
+.cta .btn { background: var(--sun); color: var(--ink); border-color: var(--sun); box-shadow: 3px 3px 0 var(--flame); }
+.cta .btn:hover { color: var(--ink); box-shadow: 5px 5px 0 var(--flame); }
+.cta .btn--ghost { background: transparent; color: #fff; border-color: #fff; box-shadow: 3px 3px 0 var(--aqua); }
+.cta .btn--ghost:hover { background: #fff; color: var(--ink); }
+.cta .contactline { font-family: var(--mono); font-size: 13px; color: #BCAEE0; margin: 24px 0 0; }
+.cta .contactline a { color: var(--sun); }
+
+/* ---------- footer ---------- */
+.foot { border-top: 3px solid var(--ink); margin-top: 70px; padding: 26px 0 44px; font-family: var(--mono); font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+.foot a { color: var(--ink); }
+
+/* ---------- case study page ---------- */
+.crumb { font-family: var(--mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); padding-top: 28px; }
+.crumb a { color: var(--muted); }
+.case-hero { padding: 34px 0 0; }
+.case-hero h1 { font-size: clamp(34px, 5.4vw, 62px); max-width: 20ch; margin-bottom: 20px; }
+.case-hero h1 .it { color: var(--flame-dk); }
+.case-hero__lede { font-size: clamp(17px, 1.9vw, 20px); color: var(--ink-soft); max-width: 62ch; margin: 0 0 26px; }
+
+.factbar { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 34px; padding: 0; list-style: none; }
+.factbar li { background: var(--card); border: 2px solid var(--ink); border-radius: 14px; padding: 11px 15px; flex: 1 1 168px; }
+.factbar dt { font-family: var(--mono); font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); margin: 0 0 3px; }
+.factbar dd { margin: 0; font-size: 14px; color: var(--ink); font-weight: 500; line-height: 1.35; }
+
+.prose { max-width: 70ch; }
+.prose h2 { font-size: clamp(24px, 3.1vw, 33px); margin: 46px 0 14px; }
+.prose h2:first-child { margin-top: 0; }
+.prose h3 { font-size: 20px; margin: 28px 0 8px; }
+.prose p { margin: 0 0 18px; }
+.prose ul { margin: 0 0 18px; padding-left: 0; list-style: none; }
+.prose ul li { position: relative; padding-left: 26px; margin-bottom: 11px; }
+.prose ul li::before { content: ""; position: absolute; left: 4px; top: 10px; width: 9px; height: 9px; background: var(--flame); border: 2px solid var(--ink); border-radius: 3px; }
+.prose strong { color: var(--ink); font-weight: 600; }
+.pull {
+  font-family: var(--display); font-weight: 700; font-size: clamp(21px, 2.7vw, 29px);
+  line-height: 1.16; letter-spacing: -0.03em; color: var(--ink);
+  background: var(--sun); border: 3px solid var(--ink); border-radius: var(--r);
+  padding: 24px 26px; margin: 30px 0; box-shadow: 6px 6px 0 var(--ink);
+}
+.note { font-size: 14px; color: var(--muted); border-left: 3px solid var(--line); padding-left: 14px; }
+.nextbar { display: flex; justify-content: space-between; align-items: center; gap: 18px; flex-wrap: wrap; border-top: 3px solid var(--ink); padding-top: 26px; margin-top: 50px; }
+
+/* ---------- reveal ---------- */
+.rv { opacity: 0; transform: translateY(16px); transition: opacity .55s ease, transform .55s cubic-bezier(.22,.61,.36,1); }
+.rv.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .rv { opacity: 1; transform: none; transition: none; }
+  .ticker__track { animation: none; }
+  .dot--live, .signal__raw p::after { animation: none; }
+  html { scroll-behavior: auto; }
+  .btn, .case-card { transition: none; }
+}
+
+/* ==========================================================================
+   Resume document
+   ========================================================================== */
+.resume-shell { background: var(--card); border: 3px solid var(--ink); border-radius: var(--r); box-shadow: 8px 8px 0 var(--ink); padding: 44px 44px 48px; margin: 28px 0 50px; }
+.resume-doc { color: #1B2026; }
+.resume-doc header { border-bottom: 3px solid var(--ink); padding-bottom: 16px; margin-bottom: 22px; }
+.resume-doc h1 { font-family: var(--display); font-weight: 800; font-size: 36px; letter-spacing: -0.035em; text-transform: uppercase; margin-bottom: 8px; }
+.resume-doc .r-headline { font-family: var(--mono); font-size: 11.5px; letter-spacing: .05em; color: var(--ink-2); margin: 0 0 6px; }
+.resume-doc .r-contact { font-family: var(--mono); font-size: 11.5px; color: var(--muted); margin: 0; }
+.resume-doc h2 { font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--flame-dk); border-bottom: 2px solid var(--line); padding-bottom: 6px; margin: 26px 0 14px; }
+.r-job { margin-bottom: 16px; }
+.r-job__line { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; flex-wrap: wrap; }
+.r-job__title { font-size: 15px; color: var(--ink); font-weight: 600; }
+.r-job__date { font-family: var(--mono); font-size: 11.5px; color: var(--muted); white-space: nowrap; }
+.r-job__sub { font-size: 13px; color: var(--muted); font-style: italic; margin: 1px 0 6px; }
+.resume-doc ul { margin: 0; padding-left: 17px; }
+.resume-doc li { font-size: 13.6px; line-height: 1.5; margin-bottom: 5px; }
+.r-summary { font-size: 14px; margin: 0; }
+.r-skill { font-size: 13.6px; line-height: 1.55; margin: 0 0 7px; }
+.r-skill b, .r-edu b { color: var(--ink); }
+.r-edu { font-size: 13.6px; margin: 0 0 5px; }
+.resume-note { background: var(--sun); border: 3px solid var(--ink); border-radius: 16px; padding: 18px 20px; font-size: 15px; color: var(--ink); box-shadow: 5px 5px 0 var(--ink); }
+.resume-note p { margin: 0; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px) {
+  .signal { grid-template-columns: 1fr; }
+  .spec { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: 1fr; gap: 10px; }
+  .tl__row { grid-template-columns: 1fr; gap: 8px; }
+}
+@media (max-width: 620px) {
+  body { font-size: 16px; }
+  .wrap { padding: 0 18px; }
+  .nav__in { padding: 10px 18px; gap: 10px; }
+  .brand { font-size: 17px; }
+  .navlinks { gap: 3px; }
+  .navlinks a { font-size: 12.5px; padding: 6px 9px; }
+  .navlinks a.hide-xs { display: none; }
+  .section { padding: 54px 0; }
+  .hero { padding: 38px 0 14px; }
+  .hero h1 { letter-spacing: -0.035em; }
+  .signal { box-shadow: 5px 5px 0 var(--ink); }
+  .signal__raw, .signal__out { padding: 22px 20px; }
+  .case-card { box-shadow: 5px 5px 0 var(--ink); }
+  .case-card:hover { transform: none; box-shadow: 5px 5px 0 var(--ink); }
+  .case-card__body { padding: 22px 18px 20px; }
+  .case-card__bar { padding: 10px 18px; font-size: 10.5px; }
+  .cta { padding: 34px 22px; border-radius: 20px; box-shadow: 6px 6px 0 var(--flame); }
+  .pull { padding: 18px; box-shadow: 4px 4px 0 var(--ink); }
+  .resume-shell { padding: 22px 18px 26px; box-shadow: 5px 5px 0 var(--ink); }
+  .resume-doc h1 { font-size: 27px; }
+  .orgs li { flex: 1 1 100%; }
+  .btn { font-size: 14px; padding: 11px 18px; }
+  .factbar li { flex: 1 1 100%; }
+}
+
+/* ==========================================================================
+   Print: clean, conservative, ATS friendly. Deliberately not the site style.
+   ========================================================================== */
+@media print {
+  @page { size: A4; margin: 10mm 12mm; }
+  html, body { background: #fff !important; font-size: 10pt; }
+  .nav, .foot, .no-print, .resume-note, .ticker { display: none !important; }
+  body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #000; }
+  .wrap { max-width: none; padding: 0; }
+  .resume-shell { border: 0; padding: 0; margin: 0; box-shadow: none; border-radius: 0; background: #fff; }
+  .resume-doc { font-size: 8.6pt; line-height: 1.29; color: #000; }
+  .resume-doc header { border-bottom: 1.2pt solid #000; padding-bottom: 3.5pt; margin-bottom: 5pt; text-align: center; }
+  .resume-doc h1 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 700; font-size: 17pt; letter-spacing: 0.04em; margin-bottom: 2pt; color: #000; line-height: 1.05; }
+  .resume-doc .r-headline { font-family: inherit; font-size: 8.2pt; letter-spacing: 0.01em; color: #000; margin-bottom: 1.5pt; }
+  .resume-doc .r-contact { font-family: inherit; font-size: 8.2pt; color: #222; }
+  .resume-doc h2 { font-family: inherit; font-size: 7.9pt; letter-spacing: 0.16em; color: #000; border-bottom: 0.6pt solid #777; padding-bottom: 1.5pt; margin: 6.2pt 0 3.5pt; }
+  .r-summary { font-size: 8.5pt; line-height: 1.31; }
+  .r-job { margin-bottom: 4.4pt; }
+  .r-job__title { font-size: 9pt; }
+  .r-job__date { font-family: inherit; font-size: 8.2pt; color: #000; }
+  .r-job__sub { font-size: 7.9pt; margin: 0 0 1.5pt; }
+  .resume-doc ul { padding-left: 11pt; }
+  .resume-doc li { font-size: 8.5pt; line-height: 1.28; margin-bottom: 0.8pt; }
+  .r-skill, .r-edu { font-size: 8.5pt; line-height: 1.3; margin-bottom: 1.8pt; }
+  a { color: #000; text-decoration: none; }
+  .r-job, .r-job__line, li { page-break-inside: avoid; }
+  .resume-doc > *:last-child { margin-bottom: 0 !important; }
+  .resume-doc ul:last-child, .resume-doc li:last-child { margin-bottom: 0; }
+}
+
+/* single-file additions */
+.view[hidden] { display: none !important; }
+@media print {
+  #view-home, #view-case-1, #view-case-2, #view-case-3 { display: none !important; }
+  #view-resume { display: block !important; }
+}
+
+</style>
 </head>
 <body>
 
-<header class="nav">
+<header class="nav no-print">
   <div class="nav__in">
-    <a class="brand" href="index.html">Rahul Attery<em>.</em></a>
+    <a class="brand" href="#home">Rahul Attery<em>.</em></a>
     <nav class="navlinks" aria-label="Main">
-      <a href="#work">Work</a>
-      <a class="hide-xs" href="#how">How I work</a>
-      <a class="hide-xs" href="#record">Record</a>
-      <a href="resume.html">Resume</a>
+      <a href="#home" data-nav="home">Home</a>
+      <a href="#case-1" data-nav="case-1">Case 01</a>
+      <a href="#case-2" data-nav="case-2">Case 02</a>
+      <a href="#case-3" data-nav="case-3">Case 03</a>
+      <a href="#resume" data-nav="resume">Resume</a>
       <a class="btn btn--sm btn--flame" href="#contact">Get in touch</a>
     </nav>
   </div>
 </header>
 
-<main>
+<div class="view" id="view-home"><main>
 
   <!-- HERO -->
   <section class="wrap hero" id="top">
@@ -51,8 +447,8 @@
 
     <div class="ctarow">
       <a class="btn" href="#work">See the work</a>
-      <a class="btn btn--ghost" href="resume.html">View resume</a>
-      <a class="btn btn--ghost" href="assets/Rahul_Attery_Resume.pdf" download>Download PDF</a>
+      <a class="btn btn--ghost" href="#resume">View resume</a>
+      <a class="btn btn--ghost" href="Rahul_Attery_Resume.pdf" download>Download PDF</a>
     </div>
   </section>
 
@@ -126,7 +522,7 @@
     <article class="case-card cc--1 rv">
       <div class="case-card__bar">iSAT Africa &middot; Positioning &amp; packaging &middot; Oct 2025 to present</div>
       <div class="case-card__body">
-        <h3><a href="work/isat-ipulse.html">Selling infrastructure monitoring to a bank that did not know it could be bought</a></h3>
+        <h3><a href="#case-1">Selling infrastructure monitoring to a bank that did not know it could be bought</a></h3>
         <p class="case-card__lede">A pan-African bank running around 600 branches had no central view of power, generators, UPS health, cooling or fuel. It learned about outages from its own customers the next morning, then waited three to seven days on a vendor. The obstacle was never price. It was that nobody believed this was purchasable.</p>
         <div class="stats">
           <div class="stat"><b>$256K+</b><span>closed on a portfolio that had no positioning when I arrived</span></div>
@@ -136,7 +532,7 @@
         <ul class="tags">
           <li>Positioning &amp; messaging</li><li>Buyer personas</li><li>Packaging &amp; pricing</li><li>Sales enablement</li><li>C-suite stakeholders</li>
         </ul>
-        <a class="btn btn--sm" href="work/isat-ipulse.html">Read the case &rarr;</a>
+        <a class="btn btn--sm" href="#case-1">Read the case &rarr;</a>
       </div>
     </article>
 
@@ -144,7 +540,7 @@
     <article class="case-card cc--2 rv">
       <div class="case-card__bar">The Teaser Company &middot; Growth &amp; creative strategy &middot; Nov 2023 to Mar 2025</div>
       <div class="case-card__body">
-        <h3><a href="work/d2c-growth-engine.html">Making an 88-year-old the face of a D2C brand, and proving it with data</a></h3>
+        <h3><a href="#case-2">Making an 88-year-old the face of a D2C brand, and proving it with data</a></h3>
         <p class="case-card__lede">Good product, low awareness outside its home region, a crowded category, and founders stuck on direction. The hard part was never running the ads. It was building an engine that kept working after the first winning creative.</p>
         <div class="stats">
           <div class="stat"><b>6x to 9.5x</b><span>ROAS on winning campaigns, found inside month one</span></div>
@@ -154,7 +550,7 @@
         <ul class="tags">
           <li>Creative testing framework</li><li>Meta campaigns</li><li>Conversion &amp; AOV</li><li>Growth playbook</li><li>Account growth</li>
         </ul>
-        <a class="btn btn--sm" href="work/d2c-growth-engine.html">Read the case &rarr;</a>
+        <a class="btn btn--sm" href="#case-2">Read the case &rarr;</a>
       </div>
     </article>
 
@@ -162,7 +558,7 @@
     <article class="case-card cc--3 rv">
       <div class="case-card__bar">Digidarts &middot; Market entry &amp; partnerships &middot; Mar 2025 to Jun 2025</div>
       <div class="case-card__body">
-        <h3><a href="work/mena-market-entry.html">Entering the UAE from India, with a pipeline to show for it</a></h3>
+        <h3><a href="#case-3">Entering the UAE from India, with a pipeline to show for it</a></h3>
         <p class="case-card__lede">An agency with a strong reputation at home and no international plan. I built the market-entry strategy, the ICPs and target accounts, the partner map and the outbound system, then used it to land a regional super app and a UAE bank inside the engagement.</p>
         <div class="stats">
           <div class="stat"><b>$20K to $150K+</b><span>deal sizes closed across UAE, KSA, Qatar, Kuwait, Bahrain, North America</span></div>
@@ -172,7 +568,7 @@
         <ul class="tags">
           <li>Market entry</li><li>ICP definition</li><li>Partner &amp; channel</li><li>Outbound systems</li><li>Pilot to retainer</li>
         </ul>
-        <a class="btn btn--sm" href="work/mena-market-entry.html">Read the case &rarr;</a>
+        <a class="btn btn--sm" href="#case-3">Read the case &rarr;</a>
       </div>
     </article>
   </section>
@@ -212,7 +608,7 @@
     <div class="shead shead--wide rv">
       <p class="eyebrow eyebrow--aqua">Track record</p>
       <h2>Seven roles, one throughline.</h2>
-      <p>Full detail, dates and figures on the <a href="resume.html">resume</a>.</p>
+      <p>Full detail, dates and figures on the <a href="#resume">resume</a>.</p>
     </div>
     <div class="tl rv">
       <div class="tl__row">
@@ -275,19 +671,481 @@
       <div class="ctarow">
         <a class="btn" href="mailto:rahul.attery@gmail.com">rahul.attery@gmail.com</a>
         <a class="btn btn--ghost" href="https://linkedin.com/in/rahulattery" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn btn--ghost" href="assets/Rahul_Attery_Resume.pdf" download>Download CV</a>
+        <a class="btn btn--ghost" href="Rahul_Attery_Resume.pdf" download>Download CV</a>
       </div>
-      <p class="contactline">Prefer the long version? The <a href="resume.html">full resume</a> is one page and reads in ninety seconds.</p>
+      <p class="contactline">Prefer the long version? The <a href="#resume">full resume</a> is one page and reads in ninety seconds.</p>
     </div>
   </section>
 
-</main>
+</main></div>
+<div class="view" id="view-case-1" hidden><main class="wrap">
+  <p class="crumb"><a href="#home">Work</a> &nbsp;/&nbsp; iSAT Africa</p>
 
-<footer class="wrap foot">
+  <section class="case-hero">
+    <p class="eyebrow">Case 01 &middot; Positioning &amp; packaging</p>
+    <h1>Selling infrastructure monitoring to a bank that <span class="it">did not know it could be bought</span></h1>
+    <p class="case-hero__lede">A pan-African bank running around 600 branches had no central view of its own infrastructure. The obstacle was never price. It was that nobody in the room believed this was a thing you could purchase.</p>
+
+    <ul class="factbar">
+      <li><dt>Client</dt><dd>iSAT Africa Ltd Fzc</dd></li>
+      <li><dt>End customer</dt><dd>Pan-African bank, ~600 branches. Name withheld.</dd></li>
+      <li><dt>Period</dt><dd>Oct 2025 to present</dd></li>
+      <li><dt>Markets</dt><dd>Middle East, Sub-Saharan Africa</dd></li>
+      <li><dt>Reporting to</dt><dd>MD and CEO</dd></li>
+      <li><dt>Products</dt><dd>iPulse, iNaaS, satellite connectivity</dd></li>
+    </ul>
+
+    <div class="stats" style="margin-bottom: 34px;">
+      <div class="stat"><b>$256K+</b><span>closed on a portfolio that had no positioning, packaging or collateral when I arrived</span></div>
+      <div class="stat"><b>3 models</b><span>service tiers designed, instead of one take-it-or-leave-it package</span></div>
+      <div class="stat"><b>100 &rarr; 600</b><span>branches, phased. Deliberately small first, expanding on proven results</span></div>
+    </div>
+
+    <div class="signal signal--flame">
+      <div class="signal__raw">
+        <span class="lab">Input &middot; what the product sheet said</span>
+        <p>iPulse. SaaS-based IoT monitoring and analytics. Polls power, generator runtime, UPS health, battery backup, cooling and fuel telemetry from remote sites into a single analytics layer.</p>
+      </div>
+      <div class="signal__out">
+        <span class="lab">Output &middot; what the buyer actually bought</span>
+        <p>You will know a branch is going down before your customers tell you about it in the morning. And you will pay for it monthly, not buy it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section prose">
+    <h2>The situation</h2>
+    <p>iPulse is an IoT product for infrastructure monitoring. It is genuinely useful and it was genuinely hard to sell, because everything true about it was written in the language of the people who built it rather than the people who buy it.</p>
+    <p>The first customer I worked in front of was a bank operating around 600 branches across several African countries. Nothing at branch level was centrally visible. Power failures, generator usage, UPS health, battery backup, cooling systems and fuel consumption were all managed locally, branch by branch. The consequences were specific:</p>
+    <ul>
+      <li>Most issues were only discovered after a branch had already gone down.</li>
+      <li>Fuel theft could not be tracked properly.</li>
+      <li>Maintenance was reactive rather than preventive.</li>
+      <li>There was no single dashboard for any of it.</li>
+    </ul>
+    <p>Underneath that sat the real operating problem: a different vendor for every layer. When the network or an ATM failed overnight, the bank usually heard about it from its own customers the next morning. Then it called the vendor. Then it waited three to seven days for a resolution, losing business the entire time.</p>
+
+    <div class="pull">The customer wanted this. They did not know it existed, and on the first call they did not believe it was possible.</div>
+
+    <p>That disbelief was the actual sales obstacle, and it shaped everything I built afterwards. The objection was not price. It was plausibility, followed immediately by a second objection: how could one provider possibly manage this many branches and ATMs.</p>
+
+    <h2>What I owned</h2>
+    <p>Product marketing and go-to-market for iPulse, iNaaS and the satellite connectivity portfolio. In practice that meant two jobs in sequence. First, understand the product properly and understand what the customer was actually losing money on. Second, translate a very technical solution into simple business language, without hollowing out the substance.</p>
+    <ul>
+      <li>Complete product positioning, messaging and the sales story.</li>
+      <li>Buyer personas and segment-level value propositions for banking, retail and telecom.</li>
+      <li>Go-to-market strategy and launch plans.</li>
+      <li>The commercial structure: service models, packaging and the expansion path.</li>
+    </ul>
+
+    <h2>What I built</h2>
+    <p>The sales team needed to hold the whole story without me in the room, so the collateral system was built end to end rather than as one-off assets.</p>
+    <ul>
+      <li>Industry brochures, one-pagers, sales decks and proposal templates.</li>
+      <li>Four enterprise case studies: banking 5G, MNO tower infrastructure, logistics and NaaS.</li>
+      <li>Proposal and quote templates built into Zoho CRM, so quoting became a process rather than a document hunt.</li>
+      <li>Website content, AI explainer videos and the social content engine.</li>
+      <li>The marketing operations layer: deliverables tracker, pipeline reporting and a monthly reporting cadence to the CEO.</li>
+    </ul>
+
+    <h2>The commercial model</h2>
+    <p>The instinct in the room was to sell a single package. I recommended three service models instead, because the barrier was belief rather than budget, and a single package forces a customer to make one large decision about something they are not yet sure works.</p>
+    <p>The recommendation was to open with 100 branches under a fully managed OPEX model on a five-year contract, then expand across the remaining branches once the first phase demonstrated results. Managed services and OPEX did more work than any brochure. It answered the second objection directly: the bank was not being asked to run this, and it was not being asked to buy an asset.</p>
+
+    <h2>Where it landed</h2>
+    <ul>
+      <li>The bank started with 100 branches on a five-year contract, and is now assessing performance before releasing further branches.</li>
+      <li>Across the portfolio, <strong>$256K+ in deals closed to date</strong> on products that had no positioning, packaging or sales collateral when I arrived.</li>
+      <li>Both iPulse and iNaaS moved from unpositioned to packaged, revenue-generating offerings.</li>
+      <li>Partnership and ecosystem-led growth across Middle East and Sub-Saharan African markets, working directly with C-suite stakeholders.</li>
+    </ul>
+    <p class="note">Contract values for the end customer are withheld. The portfolio figure is the one I report on.</p>
+
+    <h2>What I would carry into the next one</h2>
+    <p>When a category is unfamiliar to the buyer, the first sale is not a pricing negotiation, it is a plausibility problem. Packaging is the argument. Three service models, a managed OPEX structure and a first phase small enough to approve did more to close that account than any single piece of messaging.</p>
+
+    <ul class="tags" style="margin-top: 30px;">
+      <li>Positioning &amp; messaging</li>
+      <li>Buyer personas</li>
+      <li>Segment value propositions</li>
+      <li>Packaging &amp; service model design</li>
+      <li>Sales enablement</li>
+      <li>Marketing operations</li>
+      <li>C-suite stakeholder management</li>
+    </ul>
+
+    <div class="nextbar">
+      <span class="eyebrow eyebrow--plain" style="margin:0;">Next case</span>
+      <a class="btn btn--sm" href="#case-2">Making an 88-year-old the face of a D2C brand &rarr;</a>
+    </div>
+  </section>
+</main></div>
+<div class="view" id="view-case-2" hidden><main class="wrap">
+  <p class="crumb"><a href="#home">Work</a> &nbsp;/&nbsp; The Teaser Company</p>
+
+  <section class="case-hero">
+    <p class="eyebrow eyebrow--aqua">Case 02 &middot; Growth &amp; creative strategy</p>
+    <h1>Making an 88-year-old the face of a D2C brand, and <span class="it">proving it with data</span></h1>
+    <p class="case-hero__lede">In a category full of near-identical brands, the only asset competitors could not copy was a person. The rest was disciplined testing.</p>
+
+    <ul class="factbar">
+      <li><dt>Employer</dt><dd>The Teaser Company</dd></li>
+      <li><dt>Role</dt><dd>Senior Manager, Account Growth &amp; GTM Strategy</dd></li>
+      <li><dt>Brand</dt><dd>Early-stage D2C food &amp; coffee brand. Name withheld.</dd></li>
+      <li><dt>Period</dt><dd>Nov 2023 to Mar 2025</dd></li>
+      <li><dt>Market</dt><dd>India, expanding beyond the South</dd></li>
+    </ul>
+
+    <div class="stats" style="margin-bottom: 34px;">
+      <div class="stat"><b>6x to 9.5x</b><span>ROAS on winning campaigns, identified inside the first month</span></div>
+      <div class="stat"><b>Higher AOV</b><span>from milestone-gated cart rewards, not from discounting</span></div>
+      <div class="stat"><b>$300K &rarr; $450K</b><span>ARR across the wider account book, up 50% in 18 months</span></div>
+    </div>
+
+    <div class="signal signal--aqua">
+      <div class="signal__raw">
+        <span class="lab">Input &middot; how the category saw it</span>
+        <p>Another direct-to-consumer snack and coffee brand, in a category already full of direct-to-consumer snack and coffee brands, with awareness concentrated in one region.</p>
+      </div>
+      <div class="signal__out">
+        <span class="lab">Output &middot; how we sold it</span>
+        <p>An 88-year-old who has been making this by hand for more than 40 years, and now wants the rest of India to taste it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section prose">
+    <h2>The situation</h2>
+    <p>The brand had a good product and a founding team stuck on direction. There were many brands in the same space, and no clear answer to why a buyer outside the region should pick this one.</p>
+    <ul>
+      <li>Awareness was low outside South India.</li>
+      <li>Customer trust was still being built.</li>
+      <li>They needed to acquire customers profitably, not simply by spending more.</li>
+    </ul>
+    <p>The challenge was never running Meta ads. It was building a repeatable growth engine, so that a winning campaign was the start of a system rather than a lucky month.</p>
+
+    <h2>What I owned</h2>
+    <p>The complete growth strategy: customer journey, creative strategy, Meta campaigns, audience testing, reporting and scaling.</p>
+
+    <h2>The bet</h2>
+    <p>The strongest asset the brand had was not a product claim. It was the founder's 88-year-old grandmother, who had been making these recipes for more than 40 years. We made her the face of the brand, on the view that people would connect with authenticity faster than with polished influencer content.</p>
+    <p>The team travelled from Delhi to Chennai to shoot with her. In her own words, she explained what makes hers different from everything else on the shelf, that she has been making it with care for more than four decades, and that she now wants to take it beyond South India properly rather than accidentally.</p>
+
+    <div class="pull">The traditional formats did not work. What worked was UGC, emotional connect, breaking-news style and podcast style.</div>
+
+    <h2>How we tested</h2>
+    <p>Nothing was decided on opinion. Every format was tested and judged on campaign data: ROAS, CTR, CPA, CPC, retention and engagement. We ran UGC, recipe videos, product demos and lifestyle content, then scaled only the creatives that actually performed and cut the rest quickly.</p>
+
+    <h2>Fixing the checkout, not just the ad</h2>
+    <p>Traffic was only half the problem. People were dropping off at the landing page, so we gamified the cart: goodies and freebies attached to price milestones, plus gift boxes. It was a joint move between creative and strategy rather than a discount lever, and it lifted average order value and, with it, purchases.</p>
+
+    <h2>Where it landed</h2>
+    <ul>
+      <li>Multiple winning creatives identified within the first month.</li>
+      <li>Some campaigns delivered between <strong>6x and 9.5x ROAS</strong>.</li>
+      <li>Acquisition costs came down and overall campaign efficiency improved.</li>
+      <li>Average order value increased through the cart and milestone work.</li>
+    </ul>
+    <p>The more useful outcome was not the campaign numbers. It was a repeatable creative testing framework and a growth playbook the team kept using as the brand expanded into marketplaces, quick commerce and retail. The same way of working was then applied across other brands in the portfolio I managed.</p>
+
+    <h2>The wider portfolio</h2>
+    <p>Across the accounts I owned at The Teaser Company, the enterprise portfolio grew from $300K to $450K ARR, up 50% in 18 months, across 10+ key accounts, with account profitability improved by about 20% through structured upsell and cross-sell.</p>
+
+    <h2>What I would carry into the next one</h2>
+    <p>In a crowded category, positioning is usually a person, not an adjective. The grandmother was not a creative gimmick, she was the only thing competitors could not copy. Everything after that was disciplined testing, and the playbook mattered more than any single winning ad.</p>
+
+    <ul class="tags" style="margin-top: 30px;">
+      <li>Growth strategy</li>
+      <li>Creative testing framework</li>
+      <li>Meta campaign management</li>
+      <li>Audience testing</li>
+      <li>Conversion &amp; AOV</li>
+      <li>Account growth</li>
+    </ul>
+
+    <div class="nextbar">
+      <span class="eyebrow eyebrow--plain" style="margin:0;">Next case</span>
+      <a class="btn btn--sm" href="#case-3">Entering the UAE from India &rarr;</a>
+    </div>
+  </section>
+</main></div>
+<div class="view" id="view-case-3" hidden><main class="wrap">
+  <p class="crumb"><a href="#home">Work</a> &nbsp;/&nbsp; Digidarts</p>
+
+  <section class="case-hero">
+    <p class="eyebrow eyebrow--violet">Case 03 &middot; Market entry &amp; partnerships</p>
+    <h1>Entering the UAE from India, with a <span class="it">pipeline to show for it</span></h1>
+    <p class="case-hero__lede">Entering a market from outside it is a trust problem before it is a pipeline problem. Partners, spec work and a small paid pilot all do the same job: they let a buyer test you cheaply.</p>
+
+    <ul class="factbar">
+      <li><dt>Client</dt><dd>Digidarts, performance marketing agency</dd></li>
+      <li><dt>Period</dt><dd>Mar 2025 to Jun 2025</dd></li>
+      <li><dt>Markets</dt><dd>UAE and wider MENA, North America, APAC</dd></li>
+      <li><dt>Mandate</dt><dd>International GTM and market entry</dd></li>
+      <li><dt>Landed</dt><dd>A regional super app and a UAE bank. Names withheld.</dd></li>
+    </ul>
+
+    <div class="stats" style="margin-bottom: 34px;">
+      <div class="stat"><b>$20K to $150K+</b><span>deal sizes closed and managed across UAE, KSA, Qatar, Kuwait, Bahrain and North America</span></div>
+      <div class="stat"><b>2 flagships</b><span>a regional super app and a UAE bank, both landed inside a four-month engagement</span></div>
+      <div class="stat"><b>1 system</b><span>partner map, outbound engine and playbooks the company retained afterwards</span></div>
+    </div>
+
+    <div class="signal signal--violet">
+      <div class="signal__raw">
+        <span class="lab">Input &middot; where it started</span>
+        <p>A well-regarded Indian agency with international ambition and ad hoc business development. Occasional conversations, no market map, no repeatable process.</p>
+      </div>
+      <div class="signal__out">
+        <span class="lab">Output &middot; where it ended</span>
+        <p>A named list of the accounts, partners and decision makers worth calling in the UAE, and a system for calling them that keeps running after the consultant leaves.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section prose">
+    <h2>The situation</h2>
+    <p>The company already had a good reputation in India, but there was no proper plan for international expansion. Most business development was happening in an ad hoc way. The brief I set was to build a growth engine rather than to find a few clients, because finding a few clients solves one quarter and a system solves the market.</p>
+
+    <h2>The market map</h2>
+    <p>I started with research, and made it specific enough to act on:</p>
+    <ul>
+      <li>Which countries actually made sense to enter first, and which industries to target.</li>
+      <li>What the open briefs in the UAE market were at that moment.</li>
+      <li>Which partners were already operating in the market and worth working with.</li>
+      <li>Which Shopify companies operating in the UAE could become partners rather than prospects.</li>
+      <li>Who the real decision makers were, by name.</li>
+    </ul>
+    <p>From that I built the go-to-market strategy, defined the ICPs, shortlisted target accounts and put together a revenue plan, so that every activity mapped back to a business goal rather than to activity for its own sake. The deliverables were operational: contact data for consultants, LinkedIn outreach automation running through AI agents, contacts for Shopify app partners we could work with on a client-by-client basis, and a list of UAE agencies with multi-country clients where the relationship could run both ways. They could deliver for us in the UAE and we could deliver for them in India.</p>
+
+    <h2>Partnerships as the primary channel</h2>
+    <p>A large part of the work was partner-led rather than direct. I researched Shopify partners, SaaS companies, AI platforms, consultants and agencies across the UAE and MENA that could become referral or co-selling partners, on the view that an unknown agency entering a new market borrows trust faster than it builds it.</p>
+
+    <h2>The outbound system</h2>
+    <p>Alongside that I built the outbound process end to end: LinkedIn outreach, email sequences, WhatsApp follow-ups, discovery calls, case studies, proposals, pilot projects, and the conversion of those pilots into long-term retainers. To make it repeatable I also built the sales playbooks, case studies, outreach templates, meeting trackers, pipeline reports and weekly execution plans, so the team was not starting from a blank page every week.</p>
+
+    <div class="pull">The goal was never lead generation. It was a repeatable international business development model the company could keep using in the next market.</div>
+
+    <h2>Two worked examples</h2>
+
+    <h3>A regional super app</h3>
+    <p>We had been tracking a head of growth at a large Indian quick-commerce brand. He moved to the super app as head of marketing, and that relationship gave us the meeting. We proposed starting with a pilot and pitched several products: app store optimisation for downloads, AI search visibility so that the brand surfaces when someone asks an AI assistant which company is best in Dubai, plus SEO and performance marketing. Performance marketing and AI search visibility were what landed. It closed on a monthly retainer with managed spend.</p>
+
+    <h3>A UAE bank</h3>
+    <p>Once the first account was cracked we moved immediately, while we had proof. I found the contact through LinkedIn automation, started with a marketing executive, and he introduced the head of marketing. We could not get a slot, so instead of chasing it we sent examples of our work, and then, with Eid approaching, built spec work for the bank rather than asking for more time. That converted into a pilot on a single service, creatives plus performance, running around 50 days and structured to move onto a retainer afterwards. We also introduced partners with a global presence and supported website optimisation work.</p>
+
+    <h2>The commercial model</h2>
+    <p>Revenue was a retainer plus a percentage of managed media spend. As the account grows, through higher ROAS, more purchase orders, more impressions, lower CAC and higher AOV, the spend grows and the agency's revenue grows with it. That structure aligns the agency to the client's performance rather than to the invoice, and it is the reason pilots were priced to convert rather than to maximise the first cheque.</p>
+
+    <h2>Where it landed</h2>
+    <ul>
+      <li>Two flagship UAE accounts onboarded inside the engagement, a regional super app and a bank, both starting as pilots structured to become retainers.</li>
+      <li>Deals in the <strong>$20K to $150K+</strong> range closed and managed across UAE, KSA, Qatar, Kuwait, Bahrain and North America.</li>
+      <li>A market-entry model, partner map and outbound system the company retained after the engagement ended.</li>
+    </ul>
+    <p class="note">The two accounts above are the most recent examples. Other engagements in other markets are not described here.</p>
+
+    <h2>What I would carry into the next one</h2>
+    <p>The spec work built around Eid closed a bank that would not give us a meeting. That is a better argument for doing the work upfront than any follow-up sequence I could write.</p>
+
+    <ul class="tags" style="margin-top: 30px;">
+      <li>Market entry</li>
+      <li>ICP definition</li>
+      <li>Target account strategy</li>
+      <li>Partner &amp; channel development</li>
+      <li>Outbound systems</li>
+      <li>Pipeline reporting</li>
+      <li>Pilot to retainer conversion</li>
+    </ul>
+
+    <div class="nextbar">
+      <span class="eyebrow eyebrow--plain" style="margin:0;">Next case</span>
+      <a class="btn btn--sm" href="#case-1">Selling infrastructure monitoring to a bank &rarr;</a>
+    </div>
+  </section>
+</main></div>
+<div class="view" id="view-resume" hidden><main class="wrap">
+
+  <div class="no-print" style="padding-top: 40px;">
+    <p class="eyebrow">Resume &middot; one page</p>
+    <div class="resume-note">
+      <p><strong>Two ways to take this.</strong> <a href="Rahul_Attery_Resume.pdf" download>Download the PDF</a>, or print this page directly. The PDF is generated from this page, so the two cannot disagree. The print version is deliberately plain so applicant tracking systems can parse it.</p>
+    </div>
+  </div>
+
+  <div class="resume-shell">
+  <article class="resume-doc">
+
+    <header>
+      <h1>Rahul Attery</h1>
+      <p class="r-headline">Product Marketing | GTM | AI | B2B SaaS | Fintech</p>
+      <p class="r-contact">Dubai, UAE (relocating in 30 days) &nbsp;|&nbsp; rahul.attery@gmail.com &nbsp;|&nbsp; WA: +91 9802449090 &nbsp;|&nbsp; linkedin.com/in/rahulattery</p>
+    </header>
+
+    <h2>Summary</h2>
+    <p class="r-summary">Product marketing and go-to-market lead with 6+ years across sales, marketing, productization and strategy in B2B technology, spanning satellite connectivity, telecom, fintech, AI SaaS and banking. Owns positioning, messaging, packaging, launch planning and sales enablement end to end, currently for a Dubai-headquartered satellite and managed connectivity provider across the Middle East and Sub-Saharan Africa, reporting to the MD/CEO. Takes products from unpositioned to packaged and revenue-generating, with $256K+ in deals closed on the portfolio, and grows enterprise account books.</p>
+
+    <h2>Professional Experience</h2>
+
+    <div class="r-job">
+      <div class="r-job__line">
+        <span class="r-job__title">Product Marketing and GTM Consultant (Contract), iSAT Africa Ltd Fzc</span>
+        <span class="r-job__date">Oct 2025 - Present</span>
+      </div>
+      <p class="r-job__sub">Satellite and Managed Connectivity | Dubai, UAE</p>
+      <ul>
+        <li><b>Own product marketing and go-to-market</b> for iPulse (SaaS-based IoT monitoring and analytics), iNaaS and the satellite connectivity portfolio; took both products from unpositioned to packaged, revenue-generating offerings, with $256K+ in deals closed on the portfolio to date.</li>
+        <li><b>Build positioning and messaging frameworks</b>, buyer personas and segment-level value propositions for banking, retail and telecom, plus the launch plans and sales enablement that drive adoption.</li>
+        <li><b>Lead partnership and ecosystem-led growth</b> across Middle East and Sub-Saharan African markets, working directly with C-suite stakeholders; an earlier engagement with the same client supported the OneWeb launch ecosystem at the Seamless Digital Conference, Dubai.</li>
+        <li><b>Built the end-to-end collateral system</b>: industry brochures, 4 enterprise case studies (banking 5G, MNO tower infrastructure, logistics, NaaS), proposal and quote templates in Zoho CRM.</li>
+        <li><b>Run the social content engine and campaigns</b>, plus the marketing operations layer: deliverables tracker, pipeline reporting and a monthly reporting cadence to the CEO.</li>
+      </ul>
+    </div>
+
+    <div class="r-job">
+      <div class="r-job__line">
+        <span class="r-job__title">Manager, Strategic Accounts and Growth (Contract), The 808</span>
+        <span class="r-job__date">Jul 2025 - Sep 2025</span>
+      </div>
+      <p class="r-job__sub">AI-First Marketing House</p>
+      <ul>
+        <li>Owned and expanded 15+ enterprise accounts, generating <b>$300K+ in B2B revenue</b> through AI-led marketing solutions for brands including Air India, Red Bull, ICICI Bank and Lego.</li>
+        <li>Built revenue forecasting models and growth dashboards adopted by leadership for weekly pipeline reviews; cut manual reporting time by about 40% through AI workflows and automation.</li>
+      </ul>
+    </div>
+
+    <div class="r-job">
+      <div class="r-job__line">
+        <span class="r-job__title">Senior Manager, Account Growth and GTM Strategy, The Teaser Company</span>
+        <span class="r-job__date">Nov 2023 - Mar 2025</span>
+      </div>
+      <ul>
+        <li>Grew an enterprise portfolio from $300K to $450K ARR, up 50% in 18 months, through structured upsell and cross-sell expansion across 10+ key accounts, improving account profitability by about 20%.</li>
+        <li>Built revenue tracking dashboards that improved leadership forecast accuracy, and reduced client churn through cross-functional alignment across strategy, delivery and creative teams.</li>
+      </ul>
+    </div>
+
+    <div class="r-job">
+      <div class="r-job__line">
+        <span class="r-job__title">Manager, Private Banking and Wealth, HSBC</span>
+        <span class="r-job__date">Aug 2023 - Nov 2023</span>
+      </div>
+      <ul>
+        <li>Achieved 95% client retention through consultative relationship management; grew portfolio revenue by about 30% in under 4 months via cross-sell across retail, fintech and media verticals.</li>
+      </ul>
+    </div>
+
+    <div class="r-job">
+      <div class="r-job__line">
+        <span class="r-job__title">Citibank, Corporate Banking, Gurugram</span>
+        <span class="r-job__date">Jan 2019 - Mar 2023</span>
+      </div>
+      <p class="r-job__sub">Promoted twice in 4 years: Assistant Product Manager (Apr 2022 - Mar 2023) | Senior Associate, Corporate Sales (Apr 2020 - Mar 2022) | Corporate Sales Associate (Jan 2019 - Mar 2020)</p>
+      <ul>
+        <li>Managed 73+ enterprise banking accounts; mapped customer-lifecycle gaps and ran structured cross-sell, upsell and retention programmes across the premium corporate segment; worked on the Digital Account Opening project from scratch to test to launch (0-1).</li>
+        <li>Led a team of 20 sales professionals, driving pipeline generation and product performance through structured reporting and KPI monitoring. Sales Champion, North Region, Q3 2022; ranked among top performers nationwide, Q2 2022.</li>
+      </ul>
+    </div>
+
+    <h2>Selected Consulting Engagement</h2>
+    <div class="r-job">
+      <div class="r-job__line">
+        <span class="r-job__title">Digidarts, Global Expansion (Contract)</span>
+        <span class="r-job__date">Mar 2025 - Jun 2025</span>
+      </div>
+      <ul>
+        <li>Defined international go-to-market and market-entry strategy across North America, MENA and APAC; closed and managed deals of $20K to $150K+ across UAE, KSA, Qatar, Kuwait, Bahrain and North America.</li>
+      </ul>
+    </div>
+
+    <h2>Skills</h2>
+    <p class="r-skill"><b>Marketing and Growth:</b> Go-to-Market Strategy | Product Marketing | Positioning and Messaging | Value Propositions | Buyer Personas and Segmentation | Competitive Intelligence | Packaging | Launch Planning | Demand Generation | Sales Enablement | Partner and Channel Marketing | Lifecycle and Account-Based Marketing | Campaign Management | Content Strategy</p>
+    <p class="r-skill"><b>Commercial and Operating:</b> Enterprise Account Growth | Pipeline and Funnel Management | Revenue Forecasting | Cross-Functional Stakeholder Management | Marketing Operations and Reporting | Enterprise Onboarding | Growth Marketing</p>
+    <p class="r-skill"><b>Tools and Data:</b> Salesforce | HubSpot | Zoho CRM | Google Analytics | Advanced Excel | Lusha | Apollo | AI tools for research, content and workflow automation agents (Claude, ChatGPT, Cursor)</p>
+
+    <h2>Education</h2>
+    <p class="r-edu"><b>MBA, Marketing and Finance</b>, IILM University, Gurugram (2017 - 2019)</p>
+    <p class="r-edu"><b>BBA</b>, Kurukshetra University (2012 - 2015)</p>
+    <p class="r-edu">Certificate of Recognition, International Programme in Business Administration and Digital Marketing, Universidad de Jaen, Spain (2018; 100 hours / 10 ECTS)</p>
+
+  </article>
+  </div>
+
+  <div class="no-print" style="padding-bottom: 60px;">
+    <a class="btn" href="#work">See the case studies &rarr;</a>
+  </div>
+
+</main></div>
+
+<footer class="wrap foot no-print">
   <span>&copy; 2026 Rahul Attery &middot; Product marketing &amp; go-to-market</span>
-  <span><a href="mailto:rahul.attery@gmail.com">Email</a> &middot; <a href="https://linkedin.com/in/rahulattery" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="resume.html">Resume</a></span>
+  <span><a href="mailto:rahul.attery@gmail.com">Email</a> &middot; <a href="https://linkedin.com/in/rahulattery" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="#resume">Resume</a></span>
 </footer>
 
-<script src="assets/site.js"></script>
+<script>
+
+(function () {
+  var VIEWS = ['home','case-1','case-2','case-3','resume'];
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function reveal(scope) {
+    var items = scope.querySelectorAll('.rv:not(.in)');
+    if (!items.length) return;
+    if (reduce || !('IntersectionObserver' in window)) {
+      for (var i = 0; i < items.length; i++) items[i].classList.add('in');
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+    for (var j = 0; j < items.length; j++) io.observe(items[j]);
+  }
+
+  function show(view, anchor, push) {
+    if (VIEWS.indexOf(view) === -1) view = 'home';
+    VIEWS.forEach(function (v) {
+      var el = document.getElementById('view-' + v);
+      if (el) el.hidden = (v !== view);
+    });
+    document.querySelectorAll('.navlinks a[data-nav]').forEach(function (a) {
+      a.classList.toggle('on', a.getAttribute('data-nav') === view);
+    });
+    var scope = document.getElementById('view-' + view);
+    if (scope) reveal(scope);
+    if (push) {
+      var h = '#' + (anchor ? anchor : view);
+      if (location.hash !== h) history.replaceState(null, '', h);
+    }
+    if (anchor) {
+      var t = scope && scope.querySelector('#' + anchor);
+      if (t) { t.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); return; }
+    }
+    window.scrollTo(0, 0);
+  }
+
+  function route(push) {
+    var h = (location.hash || '#home').slice(1);
+    if (VIEWS.indexOf(h) !== -1) { show(h, null, push); return; }
+    // in-page anchors on the home view: work, how, record, contact
+    show('home', h, push);
+  }
+
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var h = a.getAttribute('href').slice(1);
+    if (!h) return;
+    e.preventDefault();
+    if (VIEWS.indexOf(h) !== -1) { show(h, null, true); }
+    else { show('home', h, true); }
+  });
+
+  window.addEventListener('hashchange', function () { route(false); });
+  route(false);
+})();
+
+</script>
 </body>
 </html>
